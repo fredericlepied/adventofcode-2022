@@ -31,6 +31,20 @@ func TestComputeScore(t *testing.T){
 	if got != want {
 		t.Errorf("got %d, wanted %d", got, want)
 	}
+
+	got = ComputeScore2(shortList)
+	want = 70
+	
+	if got != want {
+		t.Errorf("got %d, wanted %d", got, want)
+	}
+	
+	got = ComputeScore2(longList)
+	want = 2681
+	
+	if got != want {
+		t.Errorf("got %d, wanted %d", got, want)
+	}
 }
 
 func ReadFile(fpath string) (res []string) {

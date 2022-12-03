@@ -7,6 +7,15 @@ import (
 	"strings"
 )
 
+func ComputeChar(chr byte) (res int) {
+	if (chr >= 'a' && chr <= 'z'){
+		return int(chr) - 'a' + 1
+	} else if (chr >= 'A' && chr <= 'Z'){
+		return int(chr) - 'A' + 27
+	}
+	return 0
+}
+
 func ComputeLine(line string) (res int) {
 	sum := 0
 	l := len(line) / 2
@@ -19,11 +28,7 @@ func ComputeLine(line string) (res int) {
 			continue
 		}
 		chr := line[i]
-		if (chr >= 'a' && chr <= 'z'){
-			sum += int(chr) - 'a' + 1
-		} else if (chr >= 'A' && chr <= 'Z'){
-			sum += int(chr) - 'A' + 27
-		}
+		sum += ComputeChar(chr)
 	}
 	return sum	
 }
@@ -33,6 +38,29 @@ func ComputeScore(elts []string) (res int) {
 	score := 0
 	for idx := range elts {
 		score += ComputeLine(elts[idx])		
+	}
+	return score
+}
+
+func ComputeLines2(lines []string) (res int) {
+	sum := 0
+	line := lines[0]
+	for i := 0; i < len(line); i++ {
+		slice := line[i:i+1]
+		if (strings.Contains(lines[1], slice) && strings.Contains(lines[2], slice) ) {
+			chr := line[i]
+			sum += ComputeChar(chr)
+			break
+		}
+	}
+	return sum	
+}
+
+func ComputeScore2(elts []string) (res int) {
+	fmt.Println("ComputeScore2")
+	score := 0
+	for i := 0; i < len(elts) / 3; i++ {
+		score += ComputeLines2(elts[3*i:3*i+3])		
 	}
 	return score
 }
