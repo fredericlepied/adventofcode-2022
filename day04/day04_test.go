@@ -26,6 +26,20 @@ func TestComputeScore(t *testing.T){
 	if got != want {
 		t.Errorf("got %d, wanted %d", got, want)
 	}
+
+	got = ComputeScore2(shortList)
+	want = 4
+	
+	if got != want {
+		t.Errorf("got %d, wanted %d", got, want)
+	}
+	
+	got = ComputeScore2(longList)
+	want = 897
+	
+	if got != want {
+		t.Errorf("got %d, wanted %d", got, want)
+	}
 }
 
 func Map(vs []string, f func(string) (int, error)) []int {
