@@ -15,15 +15,19 @@ func ComputeLine(line []int) (res int) {
 	return 0
 }
 
-func ComputeScore(elts [][]int) (res int) {
-	fmt.Println("ComputeScore")
+func ComputeScoreHelper(elts [][]int, f func([]int) (int)) (res int) {
 	score := 0
 	
 	for i := 0; i< len(elts); i++ {
-		score += ComputeLine(elts[i])
+		score += f(elts[i])
 	}
 
 	return score
+}
+
+func ComputeScore(elts [][]int) (res int) {
+	fmt.Println("ComputeScore2")
+	return ComputeScoreHelper(elts, ComputeLine)
 }
 
 
@@ -40,11 +44,5 @@ func ComputeLine2(line []int) (res int) {
 
 func ComputeScore2(elts [][]int) (res int) {
 	fmt.Println("ComputeScore2")
-	score := 0
-	
-	for i := 0; i< len(elts); i++ {
-		score += ComputeLine2(elts[i])
-	}
-
-	return score
+	return ComputeScoreHelper(elts, ComputeLine2)
 }
