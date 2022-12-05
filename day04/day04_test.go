@@ -1,4 +1,4 @@
-package lib
+package day04
 
 import "testing"
 import (

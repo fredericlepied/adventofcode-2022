@@ -1,6 +1,6 @@
 // https://adventofcode.com/2022/day/4
 
-package lib
+package day04
 
 import (
 	"fmt"
