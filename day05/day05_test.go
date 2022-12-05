@@ -19,6 +19,7 @@ func TestComputeResult(t *testing.T) {
 	shortStacks[1].Push("C")
 	shortStacks[1].Push("D")
 	shortStacks[2].Push("P")
+
 	got := ComputeResult(shortList, shortStacks)
 	want := "CMZ"
 
@@ -29,6 +30,32 @@ func TestComputeResult(t *testing.T) {
 	longList, longStacks := ReadFile("input.txt")
 	got = ComputeResult(longList, longStacks)
 	want = "TBVFVDZPN"
+
+	if got != want {
+		t.Errorf("got %s, wanted %s", got, want)
+	}
+}
+
+func TestComputeResult2(t *testing.T) {
+
+	shortStacks := make([]Stack, 3)
+	shortStacks[0].Push("Z")
+	shortStacks[0].Push("N")
+	shortStacks[1].Push("M")
+	shortStacks[1].Push("C")
+	shortStacks[1].Push("D")
+	shortStacks[2].Push("P")
+
+	got := ComputeResult2(shortList, shortStacks)
+	want := "MCD"
+
+	if got != want {
+		t.Errorf("got %s, wanted %s", got, want)
+	}
+
+	longList, longStacks := ReadFile("input.txt")
+	got = ComputeResult2(longList, longStacks)
+	want = "VLCWHTDSZ"
 
 	if got != want {
 		t.Errorf("got %s, wanted %s", got, want)
