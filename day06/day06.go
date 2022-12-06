@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-func ComputeResult(text string) (start int) {
+func ComputeResult(text string, length int) (start int) {
 	fmt.Println("ComputeResult")
 	start = 0
 	for loop := 1; loop < len(text); loop++ {
@@ -16,7 +16,7 @@ func ComputeResult(text string) (start int) {
 				//fmt.Printf("duplicate at %d: %c\n", start, text[start])
 			}
 		}
-		if (len(text[start:loop]) == 4) {
+		if (len(text[start:loop]) == length) {
 			start = loop + 1
 			break
 		}

@@ -7,8 +7,8 @@ import (
 	"os"
 )
 
-func check(input string, want int, t *testing.T) {
-	got := ComputeResult(input)
+func check(input string, length int, want int, t *testing.T) {
+	got := ComputeResult(input, length)
 
 	if got != want {
 		t.Errorf("got %d, wanted %d", got, want)
@@ -16,13 +16,22 @@ func check(input string, want int, t *testing.T) {
 }
 
 func TestComputeResult(t *testing.T) {
-	check("bvwbjplbgvbhsrlpgdmjqwftvncz", 5, t)
-	check("nppdvjthqldpwncqszvftbrmjlhg", 6, t)
-	check("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 10, t)
-	check("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 11, t)
+	// part 1
+	check("bvwbjplbgvbhsrlpgdmjqwftvncz", 4, 5, t)
+	check("nppdvjthqldpwncqszvftbrmjlhg", 4, 6, t)
+	check("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 4, 10, t)
+	check("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 4, 11, t)
 
 	longText := readFile("input.txt")
-	check(longText, 1909, t)
+	check(longText, 4, 1909, t)
+	
+	// part 2
+	check("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 14, 19, t)
+	check("bvwbjplbgvbhsrlpgdmjqwftvncz", 14, 23, t)
+	check("nppdvjthqldpwncqszvftbrmjlhg", 14, 23, t)
+	check("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 14, 29, t)
+	check("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 14, 26, t)
+	check(longText, 14, 3380, t)
 }
 
 func readFile(fpath string) (text string) {
