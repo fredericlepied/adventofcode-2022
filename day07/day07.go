@@ -22,13 +22,8 @@ func addFile(size int, current_dir string, sizes map[string]int) {
 	}
 }
 
-func ComputeResult(lines []string, max int) (total int) {
-	fmt.Println("ComputeResult")
-	total = 0
-	var sizes map[string]int
-	sizes = make(map[string]int)
+func computeSizes(lines []string, sizes map[string]int) {
 	current_dir := "/"
-
 	for loop := 0; loop < len(lines); loop++ {
 		line := lines[loop]
 		//fmt.Println(line)
@@ -39,7 +34,7 @@ func ComputeResult(lines []string, max int) (total int) {
 					current_dir = ""
 				} else if split[2] == ".." {
 					dirs := strings.Split(current_dir, "/")
-					current_dir = strings.Join(dirs[:len(dirs) - 1], "/")
+					current_dir = strings.Join(dirs[:len(dirs)-1], "/")
 				} else {
 					current_dir = current_dir + "/" + split[2]
 				}
@@ -54,6 +49,16 @@ func ComputeResult(lines []string, max int) (total int) {
 			}
 		}
 	}
+}
+
+func ComputeResult(lines []string, max int) (total int) {
+	fmt.Println("ComputeResult")
+	total = 0
+	var sizes map[string]int
+	sizes = make(map[string]int)
+
+	computeSizes(lines, sizes)
+
 	for _, value := range sizes {
 		//fmt.Println("Key:", key, "Value:", value)
 		if value <= max {
@@ -61,4 +66,24 @@ func ComputeResult(lines []string, max int) (total int) {
 		}
 	}
 	return total
+}
+
+func ComputeResult2(lines []string, total int, need int) (min int) {
+	fmt.Println("ComputeResult2")
+	var sizes map[string]int
+	sizes = make(map[string]int)
+
+	computeSizes(lines, sizes)
+	min = sizes[""]
+	need = need - (total - min)
+
+	for key, value := range sizes {
+		if value >= need {
+			if value < min {
+				min = value
+				fmt.Println("Key:", key, "Value:", value)
+			}
+		}
+	}
+	return min
 }
