@@ -4,11 +4,11 @@ import "testing"
 import (
 	"bufio"
 	"fmt"
+	stack "github.com/fredericlepied/adventofcode-2022/stack"
 	"os"
 	re "regexp"
 	"strconv"
 	"strings"
-	stack "github.com/fredericlepied/adventofcode-2022/stack"
 )
 
 func TestComputeResult(t *testing.T) {
@@ -92,10 +92,10 @@ func ReadFile(fpath string) (orders [][]int, stacks []stack.Stack) {
 			state = "stacks"
 		}
 		if state == "stacks" {
-			if (strings.Contains(text, "[")) {
+			if strings.Contains(text, "[") {
 				for idx := 0; idx <= len(text)/4; idx++ {
-					if (text[idx*4 + 1:idx*4 + 2] != " ") {
-						stacks[idx].Push(text[idx*4 + 1:idx*4 + 2])
+					if text[idx*4+1:idx*4+2] != " " {
+						stacks[idx].Push(text[idx*4+1 : idx*4+2])
 					}
 				}
 			} else {
@@ -107,9 +107,9 @@ func ReadFile(fpath string) (orders [][]int, stacks []stack.Stack) {
 		}
 		if state == "order" {
 			res := order_regexp.FindStringSubmatch(text)
-			if (len(res) == 4) {
-				order := []int {}
-				for idx := 1; idx<4; idx++ {
+			if len(res) == 4 {
+				order := []int{}
+				for idx := 1; idx < 4; idx++ {
 					num, _ := strconv.Atoi(res[idx])
 					order = append(order, num)
 				}

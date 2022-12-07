@@ -24,7 +24,7 @@ func TestComputeResult(t *testing.T) {
 
 	longText := readFile("input.txt")
 	check(longText, 4, 1909, t)
-	
+
 	// part 2
 	check("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 14, 19, t)
 	check("bvwbjplbgvbhsrlpgdmjqwftvncz", 14, 23, t)

@@ -3,7 +3,7 @@
 package lib
 
 import (
-    "fmt"
+	"fmt"
 )
 
 func FindElf(elts [][]int) (res int) {
@@ -13,7 +13,7 @@ func FindElf(elts [][]int) (res int) {
 		for j := range elts[i] {
 			sum += elts[i][j]
 		}
-		if (sum > max) {
+		if sum > max {
 			max = sum
 		}
 	}
@@ -28,9 +28,9 @@ func FindElf2(elts [][]int) (res int) {
 			sum += elts[i][j]
 		}
 		for k := range max {
-			if (sum > max[k]) {
+			if sum > max[k] {
 				for l := 2; l > k; l-- {
-					max[l] = max[l - 1]
+					max[l] = max[l-1]
 				}
 				max[k] = sum
 				fmt.Println("Max", k, max[k])
