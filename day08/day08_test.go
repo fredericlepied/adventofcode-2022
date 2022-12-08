@@ -25,15 +25,15 @@ func check2(input []string, want int, t *testing.T) {
 
 func TestComputeResult(t *testing.T) {
 	// part 1
-	//check(shortList, 21, t)
+	check(shortList, 21, t)
 
 	longList := readFile("input.txt")
-	//check(longList, 1809, t)
+	check(longList, 1809, t)
 
 	// part 2
 	check2(shortList, 8, t)
 
-	check2(longList, 1809, t)
+	check2(longList, 479400, t)
 }
 
 func readFile(fpath string) (lines []string) {

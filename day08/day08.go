@@ -18,7 +18,6 @@ func checkVisibility(i int, j int, lines []string) bool {
 		}
 	}
 	if visible {
-		fmt.Println("vis +x", i, j, val)
 		return true
 	}
 	// x negative
@@ -31,7 +30,6 @@ func checkVisibility(i int, j int, lines []string) bool {
 		}
 	}
 	if visible {
-		fmt.Println("vis -x", i, j, val)
 		return true
 	}
 	// y positive
@@ -44,7 +42,6 @@ func checkVisibility(i int, j int, lines []string) bool {
 		}
 	}
 	if visible {
-		fmt.Println("vis +y", i, j, val)
 		return true
 	}
 	// y negative
@@ -57,10 +54,8 @@ func checkVisibility(i int, j int, lines []string) bool {
 		}
 	}
 	if visible {
-		fmt.Println("vis -y", i, j, val)
 		return true
 	}
-	fmt.Println("no vis", i, j, val)
 	return false
 }
 
