@@ -15,6 +15,24 @@ func check(input []string, want int, t *testing.T) {
 	}
 }
 
+func check2(input []string, want []string, t *testing.T) {
+	got := ComputeResult2(input)
+
+	for idx := 0; idx < len(got); idx++ {
+		fmt.Println(got[idx])
+	}
+
+	if len(got) < len(want) {
+		t.Errorf("got list of %d elts, wanted list of %d elts", len(got), len(want))
+	}
+
+	for idx := 0; idx < len(want); idx++ {
+		if got[idx] != want[idx] {
+			t.Errorf("got different elts at index %d:\n%s\n%s", idx, got[idx], want[idx])
+		}
+	}
+}
+
 func TestComputeResult(t *testing.T) {
 	// part 1
 	check(shortList, 0, t)
@@ -25,6 +43,8 @@ func TestComputeResult(t *testing.T) {
 	check(longList, 14540, t)
 
 	// part 2
+	check2(shortList2, shortResult2, t)
+	check2(longList, longResult, t)
 }
 
 func readFile(fpath string) (lines []string) {
@@ -199,4 +219,22 @@ var shortList2 = []string{
 	"noop",
 	"noop",
 	"noop",
+}
+
+var shortResult2 = []string{
+	"##..##..##..##..##..##..##..##..##..##..",
+	"###...###...###...###...###...###...###.",
+	"####....####....####....####....####....",
+	"#####.....#####.....#####.....#####.....",
+	"######......######......######......####",
+	"#######.......#######.......#######.....",
+}
+
+var longResult = []string{
+	"####.#..#.####.####.####.#..#..##..####.",
+	"#....#..#....#.#.......#.#..#.#..#....#.",
+	"###..####...#..###....#..####.#......#..",
+	"#....#..#..#...#.....#...#..#.#.....#...",
+	"#....#..#.#....#....#....#..#.#..#.#....",
+	"####.#..#.####.#....####.#..#..##..####.",
 }
