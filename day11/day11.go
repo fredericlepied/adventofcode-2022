@@ -27,7 +27,7 @@ func (a ByInspected) Len() int           { return len(a) }
 func (a ByInspected) Less(i, j int) bool { return a[i].inspected > a[j].inspected }
 func (a ByInspected) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 
-func ComputeResult(lines []string) (result int) {
+func ComputeResult(lines []string, level int, rounds int) (result int) {
 	fmt.Println("ComputeResult")
 
 	//number_regexp := re.MustCompile("[,-]")
@@ -64,13 +64,15 @@ func ComputeResult(lines []string) (result int) {
 		//res := order_regexp.FindStringSubmatch(line)
 	}
 	monkeys = append(monkeys, current)
-	fmt.Println(monkeys)
+	worryMod := 1
+	for id := range monkeys {
+		worryMod *= monkeys[id].divisible
+	}
 
-	for round := 0; round < 20; round++ {
-		fmt.Println("round", round+1)
+	for round := 1; round <= rounds; round++ {
 		for id := range monkeys {
 			for _, item := range monkeys[id].items {
-				result := executeOperation(monkeys[id].operation, item)
+				result := executeOperation(monkeys[id].operation, item, worryMod, level)
 				monkeys[id].inspected += 1
 				var idx int
 				if result%monkeys[id].divisible == 0 {
@@ -82,15 +84,18 @@ func ComputeResult(lines []string) (result int) {
 			}
 			monkeys[id].items = nil
 		}
-		for id := range monkeys {
-			fmt.Println(id, monkeys[id].items, monkeys[id].inspected)
+		if round == 20 || round == 1 || round%1000 == 0 {
+			fmt.Println("Round", round)
+			for id := range monkeys {
+				fmt.Printf("Monkey %d inspected items %d times.\n", id, monkeys[id].inspected)
+			}
 		}
 	}
 	sort.Sort(ByInspected(monkeys))
 	return monkeys[0].inspected * monkeys[1].inspected
 }
 
-func executeOperation(op string, val int) (result int) {
+func executeOperation(op string, val int, mod int, level int) (result int) {
 	part := strings.Split(op, " ")
 	var x int
 	var y int
@@ -115,5 +120,9 @@ func executeOperation(op string, val int) (result int) {
 	if part[1] == "+" {
 		result = x + y
 	}
-	return int(math.Round(float64(result / 3)))
+	result = int(math.Round(float64(result / level)))
+
+	result %= mod
+
+	return result
 }

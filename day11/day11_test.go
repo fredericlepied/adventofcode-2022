@@ -7,8 +7,8 @@ import (
 	"testing"
 )
 
-func check(input []string, want int, t *testing.T) {
-	got := ComputeResult(input)
+func check(input []string, level int, rounds int, want int, t *testing.T) {
+	got := ComputeResult(input, level, rounds)
 
 	if got != want {
 		t.Errorf("got %d, wanted %d", got, want)
@@ -17,12 +17,15 @@ func check(input []string, want int, t *testing.T) {
 
 func TestComputeResult(t *testing.T) {
 	// part 1
-	check(shortList, 10605, t)
+	check(shortList, 3, 20, 10605, t)
 
 	longList := readFile("input.txt")
-	check(longList, 58322, t)
+	check(longList, 3, 20, 58322, t)
 
 	// part 2
+	check(shortList, 1, 10000, 2713310158, t)
+
+	check(longList, 1, 10000, 13937702909, t)
 }
 
 func readFile(fpath string) (lines []string) {
