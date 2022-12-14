@@ -15,13 +15,23 @@ func check(input []string, want int, t *testing.T) {
 	}
 }
 
+func check2(input []string, want int, t *testing.T) {
+	got := ComputeResult2(input)
+
+	if got != want {
+		t.Errorf("got %d, wanted %d", got, want)
+	}
+}
+
 func TestComputeResult(t *testing.T) {
 	// part 1
 	check(shortList, 13, t)
 	longList := readFile("input.txt")
-	check(longList, 2, t)
+	check(longList, 5659, t)
 
 	// part 2
+	check2(shortList, 140, t)
+	check2(longList, 22110, t)
 }
 
 func readFile(fpath string) (lines []string) {

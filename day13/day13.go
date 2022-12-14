@@ -5,6 +5,7 @@ package day13
 import (
 	"encoding/json"
 	"fmt"
+	"sort"
 )
 
 func compare(a, b any) int {
@@ -43,5 +44,27 @@ func ComputeResult(lines []string) (number int) {
 	}
 	fmt.Println("=>", number)
 	fmt.Println()
+	return number
+}
+
+func ComputeResult2(lines []string) (number int) {
+	fmt.Println("ComputeResult2")
+	pkts := []any{}
+	for idx := 0; idx <= len(lines)/3; idx++ {
+		var left, right any
+		json.Unmarshal([]byte(lines[3*idx]), &left)
+		json.Unmarshal([]byte(lines[3*idx+1]), &right)
+		pkts = append(pkts, left)
+		pkts = append(pkts, right)
+	}
+	pkts = append(pkts, []any{[]any{2.}}, []any{[]any{6.}})
+	sort.Slice(pkts, func(i, j int) bool { return compare(pkts[i], pkts[j]) < 0 })
+
+	number = 1
+	for i, p := range pkts {
+		if fmt.Sprint(p) == "[[2]]" || fmt.Sprint(p) == "[[6]]" {
+			number *= i + 1
+		}
+	}
 	return number
 }
