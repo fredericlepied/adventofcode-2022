@@ -15,22 +15,8 @@ func check(input []string, want int, t *testing.T) {
 	}
 }
 
-func checkFirst(input string, car string, rest string, t *testing.T) {
-	got0, got1 := GetFirst(input)
-
-	if got0 != car || got1 != rest {
-		t.Errorf("%s: got %s + %s, wanted %s + %s", input, got0, got1, car, rest)
-	}
-}
-
 func TestComputeResult(t *testing.T) {
 	// part 1
-	checkFirst("[]", "[]", "", t)
-	checkFirst("[1]", "1", "[]", t)
-	checkFirst("[1,1,3,1,1]", "1", "[1,3,1,1]", t)
-	checkFirst("[[[]]]", "[[]]", "[]", t)
-	checkFirst("[[2,3,4]]", "[2,3,4]", "[]", t)
-	checkFirst("[[1],4]", "[1]", "[4]", t)
 	check(shortList, 13, t)
 	longList := readFile("input.txt")
 	check(longList, 2, t)
