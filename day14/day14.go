@@ -31,20 +31,23 @@ func max(a int, b int) int {
 	}
 }
 
-const base = 480
+const base = 300
+const width = 400
 
 // 480 -> 540
-func ComputeResult(input []byte) (count int) {
+func ComputeResult(input []byte, floor bool) (count int) {
 	fmt.Println("ComputeResult")
 	img := [][]byte{}
 	maxY := 0
+
 	for idx := 0; idx < 180; idx++ {
 		line := []byte{}
-		for x := 0; x < 80; x++ {
+		for x := 0; x < width; x++ {
 			line = append(line, '.')
 		}
 		img = append(img, line)
 	}
+
 	for _, line := range strings.Split(strings.Trim(string(input), "\n"), "\n") {
 		queue := []image.Point{}
 		coords := strings.Split(line, " -> ")
@@ -75,7 +78,14 @@ func ComputeResult(input []byte) (count int) {
 			prev = cur
 		}
 	}
-	//displayImg(img)
+
+	if floor {
+		for x := 0; x < width; x++ {
+			img[maxY+2][x] = '#'
+		}
+		maxY += 2
+	}
+
 	for {
 		x := 500 - base
 		laid := false
@@ -88,16 +98,21 @@ func ComputeResult(input []byte) (count int) {
 				} else {
 					img[y][x] = 'o'
 					laid = true
-					fmt.Println("laid1", x, y)
+					//fmt.Println("laid1", x, y)
 					break
 				}
 			}
 		}
-		if !laid || img[0][x] != '.' {
+		if !laid {
+			break
+		}
+		if img[0][x] != '.' {
+			count++
 			break
 		}
 		count++
 	}
+
 	displayImg(img)
 	return count
 }
