@@ -4,9 +4,8 @@ package day15
 
 import (
 	"fmt"
-	u "github.com/fredericlepied/adventofcode-2022/utils"
+	. "github.com/fredericlepied/adventofcode-2022/utils"
 	re "regexp"
-	"strconv"
 )
 
 type Coord struct {
@@ -15,7 +14,7 @@ type Coord struct {
 }
 
 func (self Coord) distance(coord Coord) int {
-	return u.Abs(self.X-coord.X) + u.Abs(self.Y-coord.Y)
+	return Abs(self.X-coord.X) + Abs(self.Y-coord.Y)
 }
 
 func displayImg(img [][]byte) {
@@ -27,8 +26,8 @@ func displayImg(img [][]byte) {
 func displayLine(line map[int]byte) {
 	minX, maxX := 10000000, -10000000
 	for x := range line {
-		minX = u.Min(minX, x)
-		maxX = u.Max(maxX, x)
+		minX = Min(minX, x)
+		maxX = Max(maxX, x)
 	}
 	for x := minX; x <= maxX; x++ {
 		if _, ok := line[x]; ok {
@@ -38,19 +37,6 @@ func displayLine(line map[int]byte) {
 		}
 	}
 	fmt.Println()
-}
-
-func s2i(str string) int {
-	n, _ := strconv.Atoi(str)
-	return n
-}
-
-func min(a int, b int) int {
-	if a > b {
-		return b
-	} else {
-		return a
-	}
 }
 
 func set(x int, y int, val byte, img map[int]byte, targetY int) {
@@ -67,7 +53,7 @@ func initBeacons(lines []string, beacons map[Coord]Coord) {
 	for idx := 0; idx < len(lines); idx++ {
 		line := lines[idx]
 		res := line_regexp.FindStringSubmatch(line)
-		beacons[Coord{s2i(res[1]), s2i(res[2])}] = Coord{s2i(res[3]), s2i(res[4])}
+		beacons[Coord{ToInt(res[1]), ToInt(res[2])}] = Coord{ToInt(res[3]), ToInt(res[4])}
 	}
 }
 
@@ -84,7 +70,7 @@ func ComputeResult(lines []string, targetY int) (result int) {
 		dist := sensor.distance(beacon)
 		if targetY >= sensor.Y-dist && targetY <= sensor.Y+dist {
 			for x := sensor.X - dist; x < sensor.X+dist; x++ {
-				dist2 := u.Abs(x-sensor.X) + u.Abs(targetY-sensor.Y)
+				dist2 := Abs(x-sensor.X) + Abs(targetY-sensor.Y)
 				if dist2 <= dist {
 					set(x, targetY, '#', img, targetY)
 				}
@@ -105,8 +91,8 @@ func initBeacons2(lines []string, beacons map[Coord]Coord, distances map[Coord]i
 	for idx := 0; idx < len(lines); idx++ {
 		line := lines[idx]
 		res := line_regexp.FindStringSubmatch(line)
-		sensor := Coord{s2i(res[1]), s2i(res[2])}
-		beacon := Coord{s2i(res[3]), s2i(res[4])}
+		sensor := Coord{ToInt(res[1]), ToInt(res[2])}
+		beacon := Coord{ToInt(res[3]), ToInt(res[4])}
 		dist := sensor.distance(beacon)
 		beacons[sensor] = beacon
 		distances[sensor] = dist
