@@ -4,7 +4,7 @@ import "testing"
 import (
 	"bufio"
 	"fmt"
-	stack "github.com/fredericlepied/adventofcode-2022/stack"
+	u "github.com/fredericlepied/adventofcode-2022/utils"
 	"os"
 	re "regexp"
 	"strconv"
@@ -13,7 +13,7 @@ import (
 
 func TestComputeResult(t *testing.T) {
 
-	shortStacks := make([]stack.Stack, 3)
+	shortStacks := make([]u.Stack[string], 3)
 	shortStacks[0].Push("Z")
 	shortStacks[0].Push("N")
 	shortStacks[1].Push("M")
@@ -39,7 +39,7 @@ func TestComputeResult(t *testing.T) {
 
 func TestComputeResult2(t *testing.T) {
 
-	shortStacks := make([]stack.Stack, 3)
+	shortStacks := make([]u.Stack[string], 3)
 	shortStacks[0].Push("Z")
 	shortStacks[0].Push("N")
 	shortStacks[1].Push("M")
@@ -71,7 +71,7 @@ func Map(vs []string, f func(string) (int, error)) []int {
 	return vsm
 }
 
-func ReadFile(fpath string) (orders [][]int, stacks []stack.Stack) {
+func ReadFile(fpath string) (orders [][]int, stacks []u.Stack[string]) {
 	readFile, err := os.Open(fpath)
 
 	if err != nil {
@@ -88,7 +88,7 @@ func ReadFile(fpath string) (orders [][]int, stacks []stack.Stack) {
 	for fileScanner.Scan() {
 		text := fileScanner.Text()
 		if state == "init" {
-			stacks = make([]stack.Stack, (len(text)+1)/4)
+			stacks = make([]u.Stack[string], (len(text)+1)/4)
 			state = "stacks"
 		}
 		if state == "stacks" {

@@ -4,7 +4,7 @@ import "testing"
 
 func TestStack(t *testing.T) {
 
-	var stack Stack
+	var stack Stack[string]
 	stack.Push("&")
 	stack.Push("&")
 	stack.Push("&")

@@ -7,7 +7,7 @@ import (
 	u "github.com/fredericlepied/adventofcode-2022/utils"
 )
 
-func ComputeResult(orders [][]int, stacks []u.Stack) (res string) {
+func ComputeResult(orders [][]int, stacks []u.Stack[string]) (res string) {
 	fmt.Println("ComputeResult")
 	for idx := 0; idx < len(orders); idx++ {
 		order := orders[idx]
@@ -28,11 +28,11 @@ func ComputeResult(orders [][]int, stacks []u.Stack) (res string) {
 	return res
 }
 
-func ComputeResult2(orders [][]int, stacks []u.Stack) (res string) {
+func ComputeResult2(orders [][]int, stacks []u.Stack[string]) (res string) {
 	fmt.Println("ComputeResult2")
 	for idx := 0; idx < len(orders); idx++ {
 		order := orders[idx]
-		var local_stack u.Stack
+		var local_stack u.Stack[string]
 		for number := 0; number < order[0]; number++ {
 			item, _ := stacks[order[1]-1].Pop()
 			local_stack.Push(item)
