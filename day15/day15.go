@@ -4,6 +4,7 @@ package day15
 
 import (
 	"fmt"
+	u "github.com/fredericlepied/adventofcode-2022/utils"
 	re "regexp"
 	"strconv"
 )
@@ -14,7 +15,7 @@ type Coord struct {
 }
 
 func (self Coord) distance(coord Coord) int {
-	return abs(self.X-coord.X) + abs(self.Y-coord.Y)
+	return u.Abs(self.X-coord.X) + u.Abs(self.Y-coord.Y)
 }
 
 func displayImg(img [][]byte) {
@@ -26,8 +27,8 @@ func displayImg(img [][]byte) {
 func displayLine(line map[int]byte) {
 	minX, maxX := 10000000, -10000000
 	for x := range line {
-		minX = min(minX, x)
-		maxX = max(maxX, x)
+		minX = u.Min(minX, x)
+		maxX = u.Max(maxX, x)
 	}
 	for x := minX; x <= maxX; x++ {
 		if _, ok := line[x]; ok {
@@ -50,23 +51,6 @@ func min(a int, b int) int {
 	} else {
 		return a
 	}
-}
-
-func max(a int, b int) int {
-	if a < b {
-		return b
-	} else {
-		return a
-	}
-}
-
-func abs(a int) int {
-	if a > 0 {
-		return a
-	} else {
-		return -a
-	}
-
 }
 
 func set(x int, y int, val byte, img map[int]byte, targetY int) {
@@ -100,7 +84,7 @@ func ComputeResult(lines []string, targetY int) (result int) {
 		dist := sensor.distance(beacon)
 		if targetY >= sensor.Y-dist && targetY <= sensor.Y+dist {
 			for x := sensor.X - dist; x < sensor.X+dist; x++ {
-				dist2 := abs(x-sensor.X) + abs(targetY-sensor.Y)
+				dist2 := u.Abs(x-sensor.X) + u.Abs(targetY-sensor.Y)
 				if dist2 <= dist {
 					set(x, targetY, '#', img, targetY)
 				}
