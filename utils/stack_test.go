@@ -1,9 +1,9 @@
-package stack
+package utils
 
 import "testing"
 
-func TestStack(t *testing.T){
-	
+func TestStack(t *testing.T) {
+
 	var stack Stack
 	stack.Push("&")
 	stack.Push("&")
@@ -11,7 +11,7 @@ func TestStack(t *testing.T){
 	stack.Pop()
 	got := len(stack)
 	want := 2
-	
+
 	if got != want {
 		t.Errorf("got %d, wanted %d", got, want)
 	}

@@ -1,4 +1,4 @@
-package stack
+package utils
 
 type Stack []string
 
@@ -24,9 +24,9 @@ func (s *Stack) Pop() (string, bool) {
 	if s.IsEmpty() {
 		return "", false
 	} else {
-		index := len(*s) - 1 // Get the index of the top most element.
+		index := len(*s) - 1   // Get the index of the top most element.
 		element := (*s)[index] // Index into the slice and obtain the element.
-		*s = (*s)[:index] // Remove it from the stack by slicing it off.
+		*s = (*s)[:index]      // Remove it from the stack by slicing it off.
 		return element, true
 	}
 }
