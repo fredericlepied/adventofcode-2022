@@ -18,4 +18,6 @@ func check(fname string, want int, t *testing.T, f func([]string) int) {
 func TestComputePart1(t *testing.T) {
 	check("small.txt", 64, t, ComputeResult)
 	check("input.txt", 3526, t, ComputeResult)
+	check("small.txt", 58, t, ComputeResult2)
+	check("input.txt", 58, t, ComputeResult2)
 }
