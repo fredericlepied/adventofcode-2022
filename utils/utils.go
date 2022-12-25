@@ -64,5 +64,7 @@ func Remove[T comparable](e T, l []T) (res []T) {
 }
 
 func Debug(print bool, a ...any) {
-	fmt.Println(a...)
+	if print {
+		fmt.Println(a...)
+	}
 }
