@@ -21,4 +21,12 @@ func TestLinkedList(t *testing.T) {
 	fmt.Println("cleaned")
 	cleaned.Display()
 	assertEqual("Len3", cleaned.Len(), 3, t)
+
+	list = NewLinkedList(1)
+	list.InsertNext(NewLinkedList(1)).InsertNext(NewLinkedList(1)).InsertNext(NewLinkedList(2)).InsertNext(NewLinkedList(2)).InsertNext(NewLinkedList(3))
+	list.Display()
+	cleaned = list.RemoveDuplicates()
+	fmt.Println("cleaned")
+	cleaned.Display()
+	assertEqual("Len3", cleaned.Len(), 1, t)
 }

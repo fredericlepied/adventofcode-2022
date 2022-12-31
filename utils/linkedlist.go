@@ -40,10 +40,16 @@ func (self *LinkedList[T]) Display() {
 	fmt.Println(node.Data)
 }
 
+// https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
 func (self *LinkedList[T]) RemoveDuplicates() *LinkedList[T] {
 	prev := self
+	first := self
 
-	for node := self.Next; node != nil; node = node.Next {
+	if self.Next != nil && self.Data == self.Next.Data {
+		first = nil
+	}
+
+	for node := self; node != nil; node = node.Next {
 		// detecting first duplicate
 		if node.Next != nil && node.Data == node.Next.Data {
 			next := node.Next
@@ -53,8 +59,12 @@ func (self *LinkedList[T]) RemoveDuplicates() *LinkedList[T] {
 			prev.Next = next
 			node = prev
 		} else {
+			// if there were duplicates at the beginning
+			if first == nil {
+				first = node
+			}
 			prev = node
 		}
 	}
-	return self
+	return first
 }
